@@ -6,7 +6,7 @@
 
 ```bash
 export HERMES_INFERENCE_BASE_URL=https://api.ainfera.ai/v1
-export HERMES_API_KEY=ai_live_...                      # https://app.ainfera.ai/signup
+export HERMES_API_KEY=ai_infera_...                      # https://app.ainfera.ai/signup
 ```
 
 Your existing hermes-agent code keeps working. You now have:
@@ -25,14 +25,14 @@ If you have `hermes-agent` installed:
 ```bash
 git clone https://github.com/ainfera-ai/examples-hermes
 cd examples-hermes
-export AINFERA_API_KEY=ai_live_...
+export AINFERA_API_KEY=ai_infera_...
 ./main.sh
 ```
 
 Or with `curl` only — no `hermes-agent` install needed:
 
 ```bash
-AINFERA_API_KEY=ai_live_... ./curl-example.sh
+AINFERA_API_KEY=ai_infera_... ./curl-example.sh
 ```
 
 ## What this proves
