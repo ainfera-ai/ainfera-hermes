@@ -1,4 +1,4 @@
-# examples-hermes — hermes-agent + Ainfera
+# ainfera-hermes — hermes-agent + Ainfera
 
 **For [hermes-agent](https://github.com/NousResearch/Hermes) builders.** Same agent loop, signed wallet + drain-proof audit underneath.
 
@@ -23,8 +23,8 @@ Your existing hermes-agent code keeps working. You now have:
 If you have `hermes-agent` installed:
 
 ```bash
-git clone https://github.com/ainfera-ai/examples-hermes
-cd examples-hermes
+git clone https://github.com/ainfera-ai/ainfera-hermes
+cd ainfera-hermes
 export AINFERA_API_KEY=ai_infera_...
 ./main.sh
 ```

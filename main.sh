@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# examples-hermes — point hermes-agent at Ainfera in 2 env vars.
+# ainfera-hermes — point hermes-agent at Ainfera in 2 env vars.
 #
 # Prereqs: hermes-agent installed locally + an Ainfera API key.
 # Get a key at https://app.ainfera.ai/signup (free $5 launch credit).

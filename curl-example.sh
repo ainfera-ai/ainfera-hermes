@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# examples-hermes — minimal curl-only flow, no hermes-agent install needed.
+# ainfera-hermes — minimal curl-only flow, no hermes-agent install needed.
 #
 # This shows what hermes-agent does under the hood when pointed at Ainfera:
 # register an Agent → fund Wallet → run an Inference → fetch a signed Receipt.
