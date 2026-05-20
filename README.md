@@ -1,6 +1,6 @@
 # ainfera-hermes — hermes-agent + Ainfera
 
-**For [hermes-agent](https://github.com/NousResearch/Hermes) builders.** Same agent loop, signed wallet + drain-proof audit underneath.
+**Hermes integration + Ainfera Routing.** Same agent loop — 2 env vars. Routed inference + signed audit underneath.
 
 ## Two env-var change
 
@@ -12,7 +12,7 @@ export HERMES_API_KEY=ai_infera_...                      # https://app.ainfera.a
 Your existing hermes-agent code keeps working. You now have:
 
 - Signed Agent Card identity (L1)
-- Drain-proof per-call wallet — survives prompt injection (L3)
+- Per-call budget enforcement on routed inference (L3)
 - Hash-chained audit per call, verifiable offline (L4)
 - 5 frontier models via one key: Claude Opus 4.7 · GPT-5.5 · Gemini 3.1 Pro · Grok 4 · Mistral Large 3
 
@@ -37,7 +37,7 @@ AINFERA_API_KEY=ai_infera_... ./curl-example.sh
 
 ## What this proves
 
-Pointing hermes-agent at Ainfera adds signed identity, drain-proof settlement, and a verifiable audit log without changing your agent loop or prompt structure. The `HERMES_INFERENCE_BASE_URL` hook routes every Inference through Ainfera; Ainfera signs the receipt and writes the AuditEvent into your Agent's chain.
+Pointing hermes-agent at Ainfera adds signed identity, Ainfera Routing, and a verifiable audit log without changing your agent loop or prompt structure. The `HERMES_INFERENCE_BASE_URL` hook routes every Inference through Ainfera; Ainfera signs the receipt and writes the AuditEvent into your Agent's chain.
 
 See the [Hermes Pool](https://ainfera.ai/hermes) landing page for the full pitch + companion concept pages.
 
