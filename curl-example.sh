@@ -34,7 +34,7 @@ echo "── 2 · Run a signed Inference via the OpenAI-compat shim ──"
 curl -fsS -X POST "$BASE/v1/chat/completions" \
   -H "Authorization: Bearer $AINFERA_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"model":"claude-opus-4-7","messages":[{"role":"user","content":"Plan a 3-day trip to Lisbon in under 80 words."}]}' \
+  -d '{"model":"ainfera-inference","messages":[{"role":"user","content":"Plan a 3-day trip to Lisbon in under 80 words."}]}' \
   | python3 -m json.tool
 
 if [[ -n "$AGENT_ID" ]]; then

@@ -10,7 +10,7 @@ set -euo pipefail
 
 export HERMES_INFERENCE_BASE_URL="https://api.ainfera.ai/v1"
 export HERMES_API_KEY="$AINFERA_API_KEY"
-export HERMES_DEFAULT_MODEL="claude-opus-4-7"
+export HERMES_DEFAULT_MODEL="ainfera-inference"
 
 # Run a sample hermes-agent task. Replace with your own loop / yaml.
 hermes-agent run "${1:-examples/research-task.yaml}"
