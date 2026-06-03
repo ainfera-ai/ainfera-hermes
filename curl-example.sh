@@ -31,7 +31,8 @@ fi
 
 echo
 echo "── 2 · Run a signed Inference via the OpenAI-compat shim ──"
-curl -fsS -X POST "$BASE/v1/chat/completions" \
+# --retry rides out the occasional transient 500 ("please retry") from the shim.
+curl -fsS --retry 3 --retry-delay 1 --retry-all-errors -X POST "$BASE/v1/chat/completions" \
   -H "Authorization: Bearer $AINFERA_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"model":"ainfera-inference","messages":[{"role":"user","content":"Plan a 3-day trip to Lisbon in under 80 words."}]}' \
