@@ -5,9 +5,21 @@
 ## Two env-var change
 
 ```bash
-export HERMES_INFERENCE_BASE_URL=https://api.ainfera.ai/v1
-export HERMES_API_KEY=ai_infera_...                      # https://app.ainfera.ai/signup
+export CUSTOM_BASE_URL=https://api.ainfera.ai/v1         # hermes reads CUSTOM_BASE_URL — not OPENAI_BASE_URL
+export OPENAI_API_KEY=ai_infera_...                      # your Ainfera key — https://app.ainfera.ai/signup
 ```
+
+Then run with the `custom` provider and the routed model:
+
+```bash
+hermes chat --provider custom --model ainfera-inference -q "Plan a 3-day trip to Lisbon in under 80 words."
+```
+
+> **Why `CUSTOM_BASE_URL`, not `OPENAI_BASE_URL`?** Hermes treats `config.yaml` /
+> `CUSTOM_BASE_URL` as the single source of truth for the chat model's endpoint and
+> **ignores `OPENAI_BASE_URL`** — setting that var silently falls back to the default
+> provider (sending your key to the wrong endpoint). `OPENAI_API_KEY` is the auth
+> fallback for any custom endpoint.
 
 Your existing hermes-agent code keeps working. You now have:
 
@@ -35,9 +47,30 @@ Or with `curl` only — no `hermes-agent` install needed:
 AINFERA_API_KEY=ai_infera_... ./curl-example.sh
 ```
 
+## Persistent setup (optional)
+
+Prefer not to export env vars each shell? Add Ainfera as a named provider in
+`~/.hermes/config.yaml` once — your key stays in `AINFERA_API_KEY`, no aliasing:
+
+```yaml
+providers:
+  ainfera:
+    name: Ainfera
+    base_url: https://api.ainfera.ai/v1
+    default_model: ainfera-inference
+    key_env: AINFERA_API_KEY
+```
+
+Then every run is just:
+
+```bash
+export AINFERA_API_KEY=ai_infera_...
+hermes chat --provider ainfera -q "Plan a 3-day trip to Lisbon in under 80 words."
+```
+
 ## What this proves
 
-Pointing hermes-agent at Ainfera adds signed identity, Ainfera Routing, and a verifiable audit log without changing your agent loop or prompt structure. The `HERMES_INFERENCE_BASE_URL` hook routes every Inference through Ainfera; Ainfera signs the receipt and writes the AuditEvent into your Agent's chain.
+Pointing hermes-agent at Ainfera adds signed identity, Ainfera Routing, and a verifiable audit log without changing your agent loop or prompt structure. The `custom` provider points hermes at Ainfera's OpenAI-compatible endpoint, which routes every Inference through Ainfera; Ainfera signs the receipt and writes the AuditEvent into your Agent's chain.
 
 See the [Hermes Pool](https://ainfera.ai/hermes) landing page for the full pitch + companion concept pages.
 
