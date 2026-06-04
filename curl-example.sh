@@ -23,7 +23,7 @@ if [[ -z "${AINFERA_API_KEY:-}" ]]; then
     -d "{\"agent_handle\":\"$HANDLE\",\"owner_source\":\"anonymous\"}")
   AINFERA_API_KEY=$(echo "$SIGNUP" | python3 -c 'import sys,json; print(json.load(sys.stdin)["api_key"])')
   AGENT_ID=$(echo "$SIGNUP" | python3 -c 'import sys,json; print(json.load(sys.stdin)["agent_id"])')
-  echo "  agent_id=$AGENT_ID  api_key=ai_infera_… (save it — shown once)"
+  echo "  agent_id=$AGENT_ID  api_key=ainfera_… (save it — shown once)"
 else
   echo "── 1 · Re-using AINFERA_API_KEY from env (skipping signup) ──"
   AGENT_ID=""

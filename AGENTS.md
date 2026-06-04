@@ -18,14 +18,14 @@ Open every change with an explicit PASS/FAIL probe of current state (clean tree?
 ## Definition of done — curl proof, not PR proof
 Run the README Quickstart end-to-end: **signup → routed inference → audit verify**.
 ```bash
-export AINFERA_API_KEY=ai_infera_...   # https://app.ainfera.ai/signup
+export AINFERA_API_KEY=ainfera_...   # https://app.ainfera.ai/signup
 ./curl-example.sh        # no-deps path (where present)
 # or the framework path in the README Quickstart
 ```
 Done = a routed completion **and** an audit receipt the `verify` tool accepts. PR opened ≠ shipped.
 
 ## Secrets — hard rules
-- `AINFERA_API_KEY` (`ai_infera_*`) comes from the environment only. Never commit it; never echo its value. `.env` is gitignored.
+- `AINFERA_API_KEY` (`ainfera_*`) comes from the environment only. Never commit it; never echo its value. `.env` is gitignored.
 - No service-role / provider keys belong in an adapter repo.
 
 ## License
