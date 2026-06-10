@@ -2,7 +2,7 @@
 
 **Point hermes-agent at Ainfera Routing** — routed inference + a signed, hash-chained audit log underneath, wired through hermes' custom OpenAI-compatible provider.
 
-> **Status (2026-06).** Routed **text** inference + signed audit work today — see [Quickstart](#quickstart-works-today). Hermes' agentic **tool-use does not round-trip yet**: hermes attaches its toolset to every request, and Ainfera's OpenAI-compatible `/v1/chat/completions` shim returns `422 tool_calling_not_supported_on_shim`. Full hermes tool-use lands when the shim translates tool calls (or via the native `/v1/inference` API). Until then, `main.sh` surfaces that 422 and points you here.
+> **Status (2026-06-10).** Routed **text** inference + signed audit work today — see [Quickstart](#quickstart-works-today), and `hermes chat` itself now completes: the shim **accepts and drops** hermes' toolset (AIN-347) instead of rejecting it, surfacing the drop via an `x-ainfera-tools-dropped: true` response header. (The old `422 tool_calling_not_supported_on_shim` is gone — verified live 2026-06-10.) The caveat that remains: hermes' agentic **tool-use does not round-trip** — tool-using turns degrade to a plain text completion until the shim translates tool calls (or you use the native `/v1/inference` API, which supports tool_use today).
 
 ## Quickstart (works today)
 
@@ -32,9 +32,9 @@ hermes chat --provider custom --model ainfera-inference -q "…"
 > provider (sending your key to the wrong endpoint). `OPENAI_API_KEY` is the auth
 > fallback for any custom endpoint.
 
-The routing is correct (the request reaches Ainfera), but per the status note the
-`hermes chat` call above returns `422` until the shim supports tool calls. `./main.sh`
-runs this same wiring and reports that clearly.
+The routing is correct (the request reaches Ainfera) and the call completes — but per
+the status note hermes' toolset is dropped (watch for `x-ainfera-tools-dropped: true`),
+so tool-using turns come back as plain text. `./main.sh` runs this same wiring.
 
 Through Ainfera Routing you get:
 

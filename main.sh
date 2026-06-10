@@ -4,11 +4,11 @@
 # Prereqs: hermes-agent installed (verify: `hermes --version`) + an Ainfera API key.
 # Get a key at https://app.ainfera.ai/signup (free $5 launch credit).
 #
-# STATUS: routing is correct (CUSTOM_BASE_URL → Ainfera), but hermes attaches a
-# toolset to every request and Ainfera's OpenAI-compatible /v1/chat/completions
-# shim does not yet translate tool calls — so this currently returns HTTP 422.
-# Routed TEXT inference + signed audit work today via ./curl-example.sh. This
-# script starts working automatically once the shim supports tool calls.
+# STATUS (2026-06-10): routing is correct (CUSTOM_BASE_URL → Ainfera) and the
+# old 422 is GONE — the shim now accepts-and-DROPS hermes' toolset (AIN-347,
+# surfaced via the x-ainfera-tools-dropped response header), so this returns a
+# routed text completion. Caveat: tool-using turns degrade to plain text until
+# the shim translates tool calls; real tool_use lives on /v1/inference.
 
 set -euo pipefail
 
@@ -28,10 +28,11 @@ if ! hermes chat --provider custom --model ainfera-inference --quiet --query "$P
   cat >&2 <<'NOTE'
 
 ── hermes call failed ─────────────────────────────────────────────────
-If this is "422 tool_calling_not_supported_on_shim": that is expected today.
-hermes sends tools and Ainfera's /v1/chat/completions shim does not yet
-translate tool calls. Routing IS correct — the request reached Ainfera.
-For a working routed demo right now (text + signed audit), run:
+The old "422 tool_calling_not_supported_on_shim" is FIXED (the shim now
+accepts hermes' toolset and drops it — x-ainfera-tools-dropped header).
+Common remaining causes: missing/invalid key (401), no registered agent
+on the tenant (400 no_agents_registered), or an unfunded wallet (402
+insufficient_funds). For a working routed demo (text + signed audit):
     ./curl-example.sh
 ───────────────────────────────────────────────────────────────────────
 NOTE
