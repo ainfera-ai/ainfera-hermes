@@ -11,7 +11,7 @@ Routed text inference + a verifiable audit chain — no `hermes-agent` install n
 ```bash
 git clone https://github.com/ainfera-ai/ainfera-hermes
 cd ainfera-hermes
-AINFERA_API_KEY=ai_infera_... ./curl-example.sh        # or omit the key to self-mint one
+AINFERA_API_KEY=ainfera_... ./curl-example.sh        # or omit the key to self-mint one
 ```
 
 Each call routes through Ainfera (`model: ainfera-inference`) and returns a receipt + an `audit_verify_url`.
@@ -22,7 +22,7 @@ Point hermes at Ainfera's OpenAI-compatible endpoint with two env vars:
 
 ```bash
 export CUSTOM_BASE_URL=https://api.ainfera.ai/v1         # hermes reads CUSTOM_BASE_URL — NOT OPENAI_BASE_URL
-export OPENAI_API_KEY=ai_infera_...                      # your Ainfera key — https://app.ainfera.ai/signup
+export OPENAI_API_KEY=ainfera_...                      # your Ainfera key — https://app.ainfera.ai/signup
 hermes chat --provider custom --model ainfera-inference -q "…"
 ```
 
